@@ -86,7 +86,7 @@
   </url>
   
   <url>
-    <loc>https://www.zhangliangliang.cc/post/hello-mind-map.html</loc>
+    <loc>https://www.zhangliangliang.cc/post/Go-grammar-overview-1.html</loc>
     
     <lastmod>2020-10-14T06:06:08.608Z</lastmod>
     
@@ -107,23 +107,16 @@
   </url>
   
   <url>
+    <loc>https://www.zhangliangliang.cc/post/hello-mind-map.html</loc>
+    
+    <lastmod>2020-10-14T06:06:08.608Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://www.zhangliangliang.cc/post/index-on-string.html</loc>
     
     <lastmod>2020-10-14T06:06:08.608Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://www.zhangliangliang.cc/post/Go-grammar-overview-1.html</loc>
-    
-    <lastmod>2020-10-14T06:06:08.608Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://www.zhangliangliang.cc/post/some-problems.html</loc>
-    
-    <lastmod>2020-10-14T06:06:08.607Z</lastmod>
     
   </url>
   
@@ -163,14 +156,14 @@
   </url>
   
   <url>
-    <loc>https://www.zhangliangliang.cc/post/mysql-optimize-table.html</loc>
+    <loc>https://www.zhangliangliang.cc/post/some-problems.html</loc>
     
-    <lastmod>2020-10-14T06:06:08.606Z</lastmod>
+    <lastmod>2020-10-14T06:06:08.607Z</lastmod>
     
   </url>
   
   <url>
-    <loc>https://www.zhangliangliang.cc/post/go-struct.html</loc>
+    <loc>https://www.zhangliangliang.cc/post/go-interface.html</loc>
     
     <lastmod>2020-10-14T06:06:08.606Z</lastmod>
     
@@ -184,7 +177,14 @@
   </url>
   
   <url>
-    <loc>https://www.zhangliangliang.cc/post/go-interface.html</loc>
+    <loc>https://www.zhangliangliang.cc/post/go-struct.html</loc>
+    
+    <lastmod>2020-10-14T06:06:08.606Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://www.zhangliangliang.cc/post/mysql-optimize-table.html</loc>
     
     <lastmod>2020-10-14T06:06:08.606Z</lastmod>
     
