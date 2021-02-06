@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://www.zhangliangliang.cc/post/how-do-I-write-program..html</loc>
+    
+    <lastmod>2021-02-06T15:03:24.809Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://www.zhangliangliang.cc/post/go-append-tip.html</loc>
     
     <lastmod>2021-02-04T13:24:56.234Z</lastmod>
@@ -30,6 +37,13 @@
   </url>
   
   <url>
+    <loc>https://www.zhangliangliang.cc/post/new-year-plan.html</loc>
+    
+    <lastmod>2020-10-14T06:06:08.610Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://www.zhangliangliang.cc/post/develop-some-habits.html</loc>
     
     <lastmod>2020-10-14T06:06:08.610Z</lastmod>
@@ -44,21 +58,7 @@
   </url>
   
   <url>
-    <loc>https://www.zhangliangliang.cc/post/new-year-plan.html</loc>
-    
-    <lastmod>2020-10-14T06:06:08.610Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://www.zhangliangliang.cc/post/MySQL-note-index-part1.html</loc>
-    
-    <lastmod>2020-10-14T06:06:08.609Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://www.zhangliangliang.cc/post/docker-remote-host.html</loc>
+    <loc>https://www.zhangliangliang.cc/post/MySQL-note-index-part2.html</loc>
     
     <lastmod>2020-10-14T06:06:08.609Z</lastmod>
     
@@ -79,16 +79,16 @@
   </url>
   
   <url>
-    <loc>https://www.zhangliangliang.cc/post/MySQL-note-index-part2.html</loc>
+    <loc>https://www.zhangliangliang.cc/post/MySQL-note-index-part1.html</loc>
     
     <lastmod>2020-10-14T06:06:08.609Z</lastmod>
     
   </url>
   
   <url>
-    <loc>https://www.zhangliangliang.cc/post/Go-grammar-overview-1.html</loc>
+    <loc>https://www.zhangliangliang.cc/post/docker-remote-host.html</loc>
     
-    <lastmod>2020-10-14T06:06:08.608Z</lastmod>
+    <lastmod>2020-10-14T06:06:08.609Z</lastmod>
     
   </url>
   
@@ -121,14 +121,14 @@
   </url>
   
   <url>
-    <loc>https://www.zhangliangliang.cc/post/compiler-intro.html</loc>
+    <loc>https://www.zhangliangliang.cc/post/Go-grammar-overview-1.html</loc>
     
-    <lastmod>2020-10-14T06:06:08.607Z</lastmod>
+    <lastmod>2020-10-14T06:06:08.608Z</lastmod>
     
   </url>
   
   <url>
-    <loc>https://www.zhangliangliang.cc/post/2019-summary.html</loc>
+    <loc>https://www.zhangliangliang.cc/post/compiler-intro.html</loc>
     
     <lastmod>2020-10-14T06:06:08.607Z</lastmod>
     
@@ -142,7 +142,7 @@
   </url>
   
   <url>
-    <loc>https://www.zhangliangliang.cc/post/lexical-analysis.html</loc>
+    <loc>https://www.zhangliangliang.cc/post/2019-summary.html</loc>
     
     <lastmod>2020-10-14T06:06:08.607Z</lastmod>
     
@@ -156,6 +156,13 @@
   </url>
   
   <url>
+    <loc>https://www.zhangliangliang.cc/post/lexical-analysis.html</loc>
+    
+    <lastmod>2020-10-14T06:06:08.607Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://www.zhangliangliang.cc/post/some-problems.html</loc>
     
     <lastmod>2020-10-14T06:06:08.607Z</lastmod>
@@ -163,7 +170,7 @@
   </url>
   
   <url>
-    <loc>https://www.zhangliangliang.cc/post/go-interface.html</loc>
+    <loc>https://www.zhangliangliang.cc/post/go-struct.html</loc>
     
     <lastmod>2020-10-14T06:06:08.606Z</lastmod>
     
@@ -177,7 +184,7 @@
   </url>
   
   <url>
-    <loc>https://www.zhangliangliang.cc/post/go-struct.html</loc>
+    <loc>https://www.zhangliangliang.cc/post/go-interface.html</loc>
     
     <lastmod>2020-10-14T06:06:08.606Z</lastmod>
     
