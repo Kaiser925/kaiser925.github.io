@@ -302,6 +302,153 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://www.zhangliangliang.cc/post/generate-private-key-for-jwt.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Kaiser925">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Kaiser925's blogs.">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/post/generate-private-key-for-jwt.html" class="post-title-link" itemprop="url">为 JWT 生成私钥</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2021-02-07 23:24:15 / 修改时间：23:31:54" itemprop="dateCreated datePublished" datetime="2021-02-07T23:24:15+08:00">2021-02-07</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>今天在写一个登录鉴权的接口，用到了 JWT，JWT 的签名与认证需要用到一对公私钥。所以需要在本地生成一对密钥。</p>
+<p>方法很简单，只需要用到 ssh-keygen 和 openssl 即可，如果命令行下没有这两个工具，可以通过 homebrew 来安装。</p>
+<p>生成的方法代码如下：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 首先生成私钥文件，在生成过程中不要输入密码</span></span><br><span class="line">ssh-keygen -t rsa -b 4096 -m PEM -f private.key</span><br><span class="line"><span class="comment"># 然后根据私钥生成对应的公钥</span></span><br><span class="line">openssl rsa -<span class="keyword">in</span> private.key -pubout -outform PEM -out public.key.pub</span><br></pre></td></tr></table></figure>
+<p>完成之后就会在当前文件夹产生两个文件，分别是私钥以及公钥。然后就可以利用它们去签发以及验证 token 了。</p>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://www.zhangliangliang.cc/post/how-do-I-write-program..html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1818,181 +1965,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://www.zhangliangliang.cc/post/lexical-analysis.html">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Kaiser925">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Kaiser925's blogs.">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/post/lexical-analysis.html" class="post-title-link" itemprop="url">词法分析</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2020-01-16 21:40:57" itemprop="dateCreated datePublished" datetime="2020-01-16T21:40:57+08:00">2020-01-16</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
-                <time title="修改时间：2020-10-14 14:06:08" itemprop="dateModified" datetime="2020-10-14T14:06:08+08:00">2020-10-14</time>
-              
-            
-          </span>
-
-          
-
-          
-            
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2><p>在之前的文章中，了解了什么是语言处理器，具体见<a href="https://zhangliangliang.cc/post/compiler-intro.html" target="_blank" rel="noopener">这里</a>。接下来就是详细了解一下编译器的结构。</p>
-<p>整体来看，一个编译器分为前端以及后端两个部分。</p>
-<p>前端也就是分析部分，在这个阶段，编译器会将源程序分解成多个组成要素，然后在这些要素上加上语法结构，之后就会利用这个语法结构去创建程序的中间表示。</p>
-<p>分析会对程序的语法，语义进行分析，如果存在不一致的情况，编译器就会返回相应的信息。与此同时，分析部分会搜集程序的一些信息，并且保存在<em>符号表</em>中。</p>
-<p>在符号表中，源程序的标志符和它的声明或者使用信息绑定在一起，比如数据类型，作用域以及内存地址。</p>
-<p>后端，也被称之为综合部分，后端接受到前端生成的中间形式以及符号表后，会根据这两者来构造目标程序。</p>
-<p>首先来看，编译器的第一个步骤，词法分析。</p>
-<h2 id="词法分析"><a href="#词法分析" class="headerlink" title="词法分析"></a>词法分析</h2><p>词法分析是编译器处理过程中的第一步。词法分析器会读取并扫描源程序的字符流，然后将他们组织成有意义的词序的序列。对于每个词素，词法分析器会产生一个 token<em>（词法单元）</em>，形式如下：</p>
-<p>​    &lt;token-name, attribute-value&gt;</p>
-<p>token-name: 语法分析阶段所需要的抽象符号</p>
-<p>attribute-name：指向符号表中保存这个 token 的记录的索引</p>
-<p>假设有这样的一条语句</p>
-<p>​    sum = a + f  * 6.0</p>
-<p>词法分析器会从左到右进行扫描，并得到下列 token</p>
-<p>​    &lt;id, 1&gt; &lt;=&gt; &lt;id, 2&gt; &lt;+&gt; &lt;id,3&gt; &lt;float, 3&gt;</p>
-<ul>
-<li>“sum” 会被映射为 &lt;id, 1&gt;，id 是 identifier <em>（标志符）</em> 的抽象表示， 1 表示 sum 在 符号表的中的条目。</li>
-<li>“=” ：&lt;=&gt;, 等号不需要属性，因此省略第二个分量</li>
-<li>其他的 token 映射规则和👆两个一样</li>
-</ul>
-<p>经过处理获得的 token 流会传给下一个步骤进行处理，即语法分析。</p>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2040,7 +2012,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">27</span>
+                    <span class="site-state-item-count">28</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
