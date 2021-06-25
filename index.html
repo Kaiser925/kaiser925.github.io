@@ -302,6 +302,163 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://www.zhangliangliang.cc/post/close-goroutines.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Kaiser925">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Kaiser925's blogs.">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/post/close-goroutines.html" class="post-title-link" itemprop="url">多生产者关闭 Goroutine</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2021-06-25 09:43:41 / 修改时间：14:46:26" itemprop="dateCreated datePublished" datetime="2021-06-25T09:43:41+08:00">2021-06-25</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>在本篇文章中，将介绍如何在多个生产者完成生产后关闭 goroutine.</p>
+<p>在编程中，我们会遇到多个生产者，单一消费者的场景。</p>
+<p>在这种情况下，工作流会分为了两个 stage:</p>
+<ul>
+<li>Stage 1: 多个生产者并发地计算结果，并将结果传入 channel</li>
+<li>Stage 2: 消费者从 channel 中读取结果，做下一步的计算</li>
+</ul>
+<p>在两个 stage 完成工作后程序自然退出，因此需要在所有生产者完成工作后，关闭 channel。消费者在 channel 关闭后，结束运行并退出。</p>
+<p>为了保证所有生产者，使用 sync.WaitGroup.</p>
+<p>示例代码：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">Demo</span><span class="params">()</span></span> &#123;</span><br><span class="line">	ch := <span class="built_in">make</span>(<span class="keyword">chan</span> <span class="keyword">int</span>)</span><br><span class="line">	workN := <span class="number">5</span> <span class="comment">// 生产者数</span></span><br><span class="line">	<span class="keyword">var</span> wg sync.WaitGroup</span><br><span class="line">	wg.Add(workN)</span><br><span class="line"></span><br><span class="line">	<span class="comment">// stage1</span></span><br><span class="line">	<span class="keyword">for</span> i := <span class="number">0</span>; i &lt; workN; i++ &#123;</span><br><span class="line">		<span class="keyword">go</span> <span class="function"><span class="keyword">func</span><span class="params">(i <span class="keyword">int</span>)</span></span> &#123;</span><br><span class="line">			n := i * i</span><br><span class="line">			ch &lt;- n</span><br><span class="line">			wg.Done()</span><br><span class="line">		&#125;(i)</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="comment">// close channel</span></span><br><span class="line">	<span class="keyword">go</span> <span class="function"><span class="keyword">func</span><span class="params">()</span></span> &#123;</span><br><span class="line">		wg.Wait()</span><br><span class="line">		<span class="built_in">close</span>(ch)</span><br><span class="line">	&#125;()</span><br><span class="line"></span><br><span class="line">	<span class="comment">// stage 2</span></span><br><span class="line">	<span class="keyword">for</span> i := <span class="keyword">range</span> ch &#123;</span><br><span class="line">		fmt.Println(i)</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>首先是 stage1，启动多个 Goroutine，通过闭包将 wg 传入，并且在完成任务后调用 wg.Done()。</p>
+<p>然后启动另一个 Goroutine 用来关闭 channel，这个 Goroutine 会阻塞，直到所有的任务完成，最后关闭 channel。</p>
+<p>最后就是 stage2，不停地从 channel 中读取数据，直到 channel 关闭，然后结束程序。</p>
+<p>这样就完成了一个多生产者场景下 channel 关闭的问题了。</p>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://www.zhangliangliang.cc/post/generate-private-key-for-jwt.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1801,170 +1958,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://www.zhangliangliang.cc/post/shell-tips.html">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Kaiser925">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Kaiser925's blogs.">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/post/shell-tips.html" class="post-title-link" itemprop="url">Shell Tips 💡</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2020-02-27 20:56:53" itemprop="dateCreated datePublished" datetime="2020-02-27T20:56:53+08:00">2020-02-27</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
-                <time title="修改时间：2020-10-14 14:06:08" itemprop="dateModified" datetime="2020-10-14T14:06:08+08:00">2020-10-14</time>
-              
-            
-          </span>
-
-          
-
-          
-            
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>一些关于 shell 的笔记</p>
-<h2 id="权限判断"><a href="#权限判断" class="headerlink" title="权限判断"></a>权限判断</h2><p>在执行脚本时，确定当前的权限是否为 root</p>
-<p>代码：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> [ <span class="string">"<span class="variable">$EUID</span>"</span> -ne 0 ]</span><br><span class="line">  <span class="keyword">then</span> <span class="built_in">echo</span> <span class="string">"not root"</span></span><br><span class="line">  <span class="built_in">exit</span></span><br><span class="line"><span class="keyword">fi</span></span><br></pre></td></tr></table></figure>
-<p>EUID, 用于系统决定用户对系统资源的访问权限，等于 0 时表示权限为 root。</p>
-<h2 id="路径判断"><a href="#路径判断" class="headerlink" title="路径判断"></a>路径判断</h2><p>判断一个文件夹是否存在</p>
-<p>代码：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> [ -d <span class="string">"<span class="variable">$DIRECTORY</span>"</span> ]; <span class="keyword">then</span></span><br><span class="line">  <span class="comment"># Control will enter here if $DIRECTORY exists.</span></span><br><span class="line"><span class="keyword">fi</span></span><br></pre></td></tr></table></figure>
-<h2 id="大小写转化"><a href="#大小写转化" class="headerlink" title="大小写转化"></a>大小写转化</h2><p>字符串转为大写或小写</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">a=ABCDF123</span><br><span class="line">a= $(<span class="built_in">echo</span> <span class="variable">$a</span> | awk <span class="string">'&#123;print tolower($0)&#125;'</span>) <span class="comment"># abcdf123</span></span><br><span class="line">a= $(<span class="built_in">echo</span> <span class="variable">$a</span> | awk <span class="string">'&#123;print toupper($0)&#125;'</span>) <span class="comment"># ABCDF123</span></span><br></pre></td></tr></table></figure>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2012,7 +2005,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">28</span>
+                    <span class="site-state-item-count">29</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
